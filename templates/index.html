@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Watermark Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Flask Watermark <span>Studio</span></h1>
+    </header>
+    <main>
+        <aside>
+            <div class="control-group">
+                <h3>1. Source Image</h3>
+                <div class="file-drop-area">
+                    <span class="file-msg">Select Main Image</span>
+                    <input type="file" id="imageInput" accept="image/*">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>2. Watermark Type</h3>
+                <div class="row">
+                    <button class="btn btn-secondary type-btn active" data-type="text">Text</button>
+                    <button class="btn btn-secondary type-btn" data-type="image">Logo</button>
+                </div>
+            </div>
+
+            <div id="textControls" class="control-group">
+                <div class="input-wrapper">
+                    <label>Text Content</label>
+                    <input type="text" id="wmText" value="© Copyright 2024">
+                </div>
+                
+                <div class="color-wrapper">
+                    <label>Color</label>
+                    <input type="color" id="wmColor" value="#ff6b6b">
+                </div>
+
+                <div class="slider-container">
+                    <div class="slider-header"><label>Font Size</label><span id="fontSizeVal">48</span></div>
+                    <input type="range" id="wmSize" min="10" max="150" value="48">
+                </div>
+            </div>
+
+            <div id="imageControls" class="control-group" style="display:none;">
+                <div class="input-wrapper">
+                    <label>Upload Logo</label>
+                    <div class="file-drop-area">
+                        <span class="file-msg">Select Logo (PNG)</span>
+                        <input type="file" id="logoInput" accept="image/*">
+                    </div>
+                </div>
+                <div class="slider-container">
+                    <div class="slider-header"><label>Scale (%)</label><span id="scaleVal">20%</span></div>
+                    <input type="range" id="logoScale" min="5" max="50" value="20">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>3. Appearance</h3>
+                <div class="slider-container">
+                    <div class="slider-header"><label>Rotation</label><span id="rotationVal">0°</span></div>
+                    <input type="range" id="wmRotation" min="-180" max="180" value="0">
+                </div>
+                <div class="slider-container">
+                    <div class="slider-header"><label>Opacity</label><span id="opacityVal">70%</span></div>
+                    <input type="range" id="wmOpacity" min="0" max="1" step="0.1" value="0.7">
+                </div>
+                <div class="input-wrapper">
+                    <label>Position</label>
+                    <select id="positionPreset">
+                        <option value="bottom-right">Bottom Right</option>
+                        <option value="bottom-left">Bottom Left</option>
+                        <option value="bottom-center">Bottom Center</option>
+                        <option value="top-right">Top Right</option>
+                        <option value="top-left">Top Left</option>
+                        <option value="top-center">Top Center</option>
+                        <option value="center-left">Center Left</option>
+                        <option value="center-right">Center Right</option>
+                        <option value="center">Center</option>
+                        <option value="tiled">Tiled (Repeated)</option>
+                    </select>
+                </div>
+                <div id="tilingControls" class="slider-container" style="display:none; margin-top:15px;">
+                    <div class="slider-header"><label>Tile Spacing</label><span id="spacingVal">100</span></div>
+                    <input type="range" id="wmSpacing" min="10" max="500" value="100">
+                </div>
+            </div>
+
+            <button id="downloadBtn" class="btn btn-primary">Process & Download</button>
+        </aside>
+        <div class="preview-area">
+            <canvas id="canvas"></canvas>
+            <div id="placeholder" class="placeholder">Preview Area</div>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='scripts/scripts.js') }}"></script>
+</body>
+</html>
